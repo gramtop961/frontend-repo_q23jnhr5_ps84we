@@ -4,36 +4,79 @@
 
 @layer base {
   :root {
-    --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-serif: 'Playfair Display', ui-serif, Georgia, 'Times New Roman', serif;
+    --color-black: #000000;
+    --color-graphite: #1A1A1A;
+    --color-gold: #E4B34A;
+    --color-gold-soft: #F7D98F;
+    --color-text: #FFFFFF;
+    --color-body: #C7C7C7;
+
+    --font-serif: 'Cormorant Garamond', 'Playfair Display', Baskerville, ui-serif, Georgia, 'Times New Roman', serif;
+    --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --font-subtitle: 'Poppins', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --font-numeric: 'Space Grotesk', 'Outfit', var(--font-sans);
   }
-  html { font-family: var(--font-sans); background:#050505; }
+  html { font-family: var(--font-sans); background: var(--color-black); color: var(--color-text); }
   body { @apply antialiased; }
 }
 
 @layer components {
-  .font-playfair { font-family: var(--font-serif); }
-  .btn-molten-gold {
-    @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-[#0b0b0b] font-semibold; 
-    background: linear-gradient(120deg, #D1A33A, #F9E6A3 45%, #D1A33A 60%, #705C2E 100%);
-    box-shadow: inset 0 0 1px #F9E6A3, 0 10px 30px rgba(209,163,58,0.25);
-    transition: filter 300ms ease, transform 200ms ease;
+  .font-serif-lux { font-family: var(--font-serif); }
+  .font-subtitle { font-family: var(--font-subtitle); }
+  .font-numeric { font-family: var(--font-numeric); letter-spacing: 0.2px; }
+
+  .btn-gold-3d {
+    @apply inline-flex items-center justify-center rounded-full px-6 py-3 font-semibold; 
+    color: #0b0b0b;
+    background: linear-gradient(120deg, var(--color-gold) 0%, var(--color-gold-soft) 45%, var(--color-gold) 75%, #B7852E 100%);
+    box-shadow: inset 0 0 1px var(--color-gold-soft), 0 10px 28px rgba(228,179,74,0.28);
+    transition: filter 260ms ease, transform 220ms ease;
   }
-  .btn-molten-gold:hover { filter: brightness(1.06); transform: translateY(-1px); }
-  .btn-champagne-outline {
-    @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-[#F9E6A3];
-    box-shadow: inset 0 0 1px #F9E6A3; border: 1px solid rgba(249,230,163,0.5);
-    background: linear-gradient(180deg, rgba(26,26,26,0.6), rgba(10,10,10,0.6));
+  .btn-gold-3d:hover { filter: brightness(1.07); transform: translateY(-1px); }
+  .btn-gold-outline {
+    @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-[var(--color-gold-soft)];
+    border: 1px solid rgba(247,217,143,0.6);
+    background: linear-gradient(180deg, rgba(26,26,26,0.7), rgba(10,10,10,0.7));
+    box-shadow: inset 0 0 1px var(--color-gold-soft);
   }
+
+  .card-glass {
+    @apply rounded-xl border bg-black/60;
+    border-color: rgba(228,179,74,0.35);
+    box-shadow: inset 0 0 1px var(--color-gold-soft), 0 10px 40px rgba(228,179,74,0.08);
+    backdrop-filter: blur(6px);
+  }
+
+  .gold-underline {
+    position: relative;
+    display: inline-block;
+  }
+  .gold-underline::after {
+    content: '';
+    position: absolute; left: 0; right: 0; bottom: -10px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-gold), var(--color-gold-soft), transparent);
+  }
+
+  .shine-hover {
+    position: relative; overflow: hidden;
+  }
+  .shine-hover::before {
+    content: '';
+    position: absolute; inset: -200% -50% auto -50%; height: 200%; width: 40%;
+    background: linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.15) 40%, rgba(255,255,255,0.06) 60%, transparent 100%);
+    transform: translateX(-120%);
+    transition: transform 600ms ease;
+  }
+  .shine-hover:hover::before { transform: translateX(220%); }
 }
 
-/* Hero micro-sparks */
+/* Hero gold particles */
 .particles::before, .particles::after {
   content: '';
   position: absolute; inset: 0; pointer-events: none;
-  background-image: radial-gradient(rgba(249,230,163,0.25) 1px, transparent 1px);
-  background-size: 20px 20px; opacity: 0.12; animation: drift 14s linear infinite;
+  background-image: radial-gradient(rgba(247,217,143,0.25) 1px, transparent 1px);
+  background-size: 22px 22px; opacity: 0.12; animation: drift 16s linear infinite;
 }
-.particles::after { background-size: 26px 26px; opacity: 0.08; animation-duration: 22s; }
+.particles::after { background-size: 28px 28px; opacity: 0.08; animation-duration: 24s; }
 
 @keyframes drift { from { transform: translateY(0px); } to { transform: translateY(-40px); } }
